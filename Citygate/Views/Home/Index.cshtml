@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Citygate.Models.Ads>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+<table class="table">
+    <tr>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                ID: @item.AdId
+            </td>
+            <td>
+                Headline: @item.AdHeadline
+            </td>
+            <td>
+                Text: @item.AdText
+            </td>
+            <td>
+                AdvertiserName: @item.AdvertiserName
+            </td>
+            <td>PublicationDate: @item.PublicationDate.ToShortDateString()</td>
+            <td>
+                @using (Html.BeginForm("RemoveAd","Home"))
+                {
+                    <input type="hidden" value="@item.PublicationDate" name="date" />
+                    <button type="submit" value="@item.AdId" name="removeId">Remove</button>
+                }
+            </td>
+        </tr>
+    }
+
+</table>

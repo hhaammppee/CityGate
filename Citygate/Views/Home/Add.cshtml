@@ -1,0 +1,62 @@
+﻿@model Citygate.Models.AddModel
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add</h2>
+
+@* 
+    NOTE: Om du inte väljer någon date blir det default värde på date som är (mycket) mindre än dagens datum och
+    tas därför bort vid en uppdatering av index. 
+*@
+
+<table class="table">
+
+    @using (Html.BeginForm("AddAd", "Home", FormMethod.Post))
+    {
+        <tr>
+            <td>
+                <div>
+                    Advertiser:
+                    @Html.DropDownListFor(x => x.AdvertiserId, ViewBag.Roles as SelectList, "Choose Advertiser")
+                    @Html.ValidationMessageFor(x => x.AdvertiserId)
+                </div>
+            </td>
+            <td>
+                Headline: <input type="text" name="headline" />
+
+            </td>
+            <td>
+                Text: <input type="text" name="text" />
+            </td>
+            <td>
+                @for (int x = 0; x < Model.numberOfDates; x++)
+                {
+                    @: PublicationDate: <input type="date" name="date" min=DateTime.Today.ToShortDateString() />
+                    Html.ValidationMessageFor(z => z.date);
+                }
+                
+                <input type="hidden" value="@Model.numberOfDates" name="numberOfDates" />
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+
+                <input type="submit" name="submit" value="AddAd" />
+                @if (Model.numberOfDates < 5)
+                {
+                    <button type="submit" value="AddDate" name="submit">AddDate</button>
+                }
+                @if (Model.numberOfDates > 1)
+                {
+                    <button type="submit" value="RemoveDate" name="submit">RemoveDate</button>
+                }
+
+            </td>
+        </tr>
+
+    }
+
+</table>

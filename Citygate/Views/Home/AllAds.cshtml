@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Citygate.Models.Ads>
+
+@{
+    ViewBag.Title = "AllAds";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AllAds</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Add")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AdId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdvertiserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdHeadline)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdvertiserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PublicationDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdvertiserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdHeadline)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdText)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdvertiserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PublicationDate)
+        </td>
+        <td>
+            @using (Html.BeginForm("RemoveAd", "Home"))
+            {
+                <input type="hidden" value="@item.PublicationDate" name="date" />
+                <button type="submit" value="@item.AdId" name="removeId">Remove</button>
+            }
+        </td>
+    </tr>
+}
+
+</table>
